@@ -31,6 +31,7 @@ const initialState = {
 
   // UI
   activePanel: 'background',
+  isPreviewOpen: false,
 }
 
 const editorSlice = createSlice({
@@ -54,6 +55,7 @@ const editorSlice = createSlice({
     setIsRecording:       (state, { payload }) => { state.isRecording = payload },
     setRecordingDuration: (state, { payload }) => { state.recordingDuration = payload },
     setActivePanel:       (state, { payload }) => { state.activePanel = payload },
+    setIsPreviewOpen:     (state, { payload }) => { state.isPreviewOpen = payload },
     resetCard:            ()                   => initialState,
   },
 })
@@ -61,7 +63,8 @@ const editorSlice = createSlice({
 export const {
   setBackground, setTag, setRecipientName, setTitle, setMessage, setSenderName,
   setFont, setTextColor, setTextAlign, setFontSize, setSticker, toggleTape,
-  setImage, setVoiceUrl, setIsRecording, setRecordingDuration, setActivePanel, resetCard,
+  setImage, setVoiceUrl, setIsRecording, setRecordingDuration, setActivePanel,
+  setIsPreviewOpen, resetCard,
 } = editorSlice.actions
 
 export default editorSlice.reducer
