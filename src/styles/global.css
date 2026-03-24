@@ -1,6 +1,31 @@
 @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
 
+/* ─── Design Tokens ──────────────────────────────────────────────────────────
+   Change any value here and it cascades through the entire app.
+   ─────────────────────────────────────────────────────────────────────────── */
+@theme {
+  /* Colors */
+  --color-brand:       #ef4444;  /* Primary action — buttons, hearts, icons  */
+  --color-brand-dark:  #dc2626;  /* Hover state for brand                    */
+  --color-accent:      #F5A623;  /* Orange — section bgs, highlights          */
+  --color-accent-dark: #d97706;  /* Hover state for accent                   */
+  --color-cream:       #FFF8E7;  /* Lightest surface — app bg, card bg        */
+  --color-ink:         #3E2723;  /* Text, borders, outlines                  */
+  --color-success:     #16a34a;  /* Step numbers, positive feedback           */
+  --color-sage:        #689F82;  /* Illustration body color                  */
+
+  /* Hard-edge shadows (brand style) */
+  --shadow-hard-xs:   3px  3px  0px #3E2723;
+  --shadow-hard-sm:   2px  2px  0px #3E2723;
+  --shadow-hard:      4px  4px  0px #3E2723;
+  --shadow-hard-lg:   6px  6px  0px #3E2723;
+  --shadow-hard-xl:   8px  8px  0px #3E2723;
+  --shadow-hard-2xl:  12px 12px 0px rgba(62, 39, 35, 0.8);
+  --shadow-hard-accent: 8px 8px 0px #F5A623;  /* Orange shadow variant        */
+}
+
+/* ─── Global Resets ──────────────────────────────────────────────────────── */
 *,
 *::before,
 *::after {
@@ -9,8 +34,8 @@
 
 body {
   margin: 0;
-  background-color: #FFF8E7;
-  color: #3E2723;
+  background-color: var(--color-cream);
+  color: var(--color-ink);
   overflow-x: hidden;
   font-family: 'Quicksand', sans-serif;
   font-synthesis: none;
@@ -25,7 +50,7 @@ body {
 }
 
 ::selection {
-  background-color: #F5A623;
+  background-color: var(--color-accent);
   color: white;
 }
 
