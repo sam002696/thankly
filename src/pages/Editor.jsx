@@ -1,14 +1,24 @@
+import { useState } from 'react'
 import { Provider } from 'react-redux'
 import store from '../store'
 import EditorHeader from '../components/editor/EditorHeader'
 import EditorSidebar from '../components/editor/EditorSidebar'
 import CardPreview from '../components/editor/CardPreview'
 import PreviewModal from '../components/editor/PreviewModal'
+import SendModal from '../components/editor/SendModal'
+import QRCardScreen from '../components/editor/QRCardScreen'
 
 function EditorInner() {
+  const [showSendModal, setShowSendModal] = useState(false)
+  const [showQRCard, setShowQRCard] = useState(false)
+
+  if (showQRCard) {
+    return <QRCardScreen onBack={() => setShowQRCard(false)} />
+  }
+
   return (
     <div className="flex flex-col h-screen overflow-hidden bg-cream">
-      <EditorHeader />
+      <EditorHeader onSendClick={() => setShowSendModal(true)} />
       <div className="flex flex-1 overflow-hidden">
         <EditorSidebar />
         {/* Live preview area */}
@@ -36,6 +46,15 @@ function EditorInner() {
 
       {/* Envelope preview modal — rendered inside the Provider */}
       <PreviewModal />
+
+      {/* Send modal */}
+      {showSendModal && (
+        <SendModal
+          onClose={() => setShowSendModal(false)}
+          onSelectQR={() => { setShowSendModal(false); setShowQRCard(true) }}
+          onSelectStory={() => setShowSendModal(false)}
+        />
+      )}
     </div>
   )
 }

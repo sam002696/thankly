@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import Button from "../ui/Button";
 import { Eye, HeartIcon } from "lucide-react";
 
-export default function EditorHeader() {
+export default function EditorHeader({ onSendClick }) {
   const dispatch = useDispatch();
 
   return (
@@ -19,7 +19,7 @@ export default function EditorHeader() {
           style={{ boxShadow: "var(--shadow-hard-sm)" }}
         >
           <span style={{ fontSize: "14px" }}>
-            <HeartIcon size={14} />
+            <HeartIcon size={14} fill="white"/>
           </span>
         </div>
         <span
@@ -62,7 +62,7 @@ export default function EditorHeader() {
           <span className="hidden sm:block">Preview</span>
         </button>
 
-        <Button variant="primary" size="sm" className="gap-2">
+        <Button variant="primary" size="sm" className="gap-2" onClick={onSendClick}>
           Send Card
           <span>→</span>
         </Button>
