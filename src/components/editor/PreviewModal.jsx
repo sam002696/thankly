@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { setIsPreviewOpen } from '../../store/slices/editorSlice'
-import { FONTS } from '../../store/constants/editorData'
+import { FONTS, ILLUSTRATIONS } from '../../store/constants/editorData'
+
+const INTENSITY_OPACITY = { subtle: 0.12, medium: 0.28, bold: 0.5 }
 import { SHAPES } from '../svg'
 
 // ── Envelope dimensions ────────────────────────────────────────────────────────
@@ -21,8 +23,12 @@ function FullCard({ forClean = false }) {
   const {
     background, tag, recipientName, title, message, senderName,
     font, textColor, textAlign, fontSize, sticker, hasTape, image,
-    voiceUrl, recordingDuration, shapes,
+    voiceUrl, recordingDuration, shapes, illustration, illustrationIntensity,
   } = useSelector(s => s.editor)
+
+  const illustrationSrc = illustration
+    ? ILLUSTRATIONS.find(il => il.id === illustration)?.src
+    : null
 
   const fontFamily = FONTS.find(f => f.id === font)?.family ?? "'Caveat', cursive"
   // Match CardPreview exactly so card height is identical and shapes align
@@ -75,6 +81,23 @@ function FullCard({ forClean = false }) {
         display: 'flex',
         flexDirection: 'column',
       }}>
+        {/* Illustration background */}
+        {illustrationSrc && (
+          <div style={{
+            position: 'absolute', inset: 0, borderRadius: '16px',
+            overflow: 'hidden', zIndex: 0, pointerEvents: 'none',
+          }}>
+            <img
+              src={illustrationSrc}
+              alt=""
+              style={{
+                width: '100%', height: '100%', objectFit: 'cover',
+                opacity: INTENSITY_OPACITY[illustrationIntensity] ?? 0.12,
+              }}
+            />
+          </div>
+        )}
+
         {/* Placed shapes */}
         {shapes?.map(shape => {
           const def = SHAPES.find(s => s.id === shape.type)
@@ -111,12 +134,12 @@ function FullCard({ forClean = false }) {
         )}
 
         {image && (
-          <div style={{ height: '160px', overflow: 'hidden', borderBottom: '2.5px solid #3E2723' }}>
+          <div style={{ height: '160px', overflow: 'hidden', borderBottom: '2.5px solid #3E2723', position: 'relative', zIndex: 1 }}>
             <img src={image} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
           </div>
         )}
 
-        <div style={{ padding: '32px 28px 22px', flex: 1, display: 'flex', flexDirection: 'column', fontFamily, color: textColor, textAlign }}>
+        <div style={{ padding: '32px 28px 22px', flex: 1, display: 'flex', flexDirection: 'column', fontFamily, color: textColor, textAlign, position: 'relative', zIndex: 1 }}>
           {recipientName && (
             <p style={{
               fontSize: '12px', fontFamily: "'Quicksand', sans-serif",

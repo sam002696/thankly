@@ -1,3 +1,9 @@
+import floralImg from '../../assets/images/floral.png'
+
+export const ILLUSTRATIONS = [
+  { id: 'floral', label: 'Floral', src: floralImg },
+]
+
 export const BACKGROUNDS = [
   // Warm
   { id: 'cream', value: '#FFF8E7', label: 'Cream', dark: false },

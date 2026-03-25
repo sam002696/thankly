@@ -1,12 +1,19 @@
 import { useSelector } from 'react-redux'
-import { FONTS } from '../../store/constants/editorData'
+import { FONTS, ILLUSTRATIONS } from '../../store/constants/editorData'
 import ShapesLayer from './ShapesLayer'
+
+const INTENSITY_OPACITY = { subtle: 0.12, medium: 0.28, bold: 0.5 }
 
 export default function CardPreview() {
   const {
     background, tag, recipientName, title, message, senderName,
     font, textColor, textAlign, fontSize, sticker, hasTape, image, voiceUrl, recordingDuration,
+    illustration, illustrationIntensity,
   } = useSelector(s => s.editor)
+
+  const illustrationSrc = illustration
+    ? ILLUSTRATIONS.find(il => il.id === illustration)?.src
+    : null
 
   const fontDef = FONTS.find(f => f.id === font)
   const fontFamily = fontDef?.family || "'Caveat', cursive"
@@ -68,11 +75,37 @@ export default function CardPreview() {
             flexDirection: 'column',
           }}
         >
+          {/* Illustration background */}
+          {illustrationSrc && (
+            <div
+              style={{
+                position: 'absolute',
+                inset: 0,
+                borderRadius: '16px',
+                overflow: 'hidden',
+                zIndex: 0,
+                pointerEvents: 'none',
+              }}
+            >
+              <img
+                src={illustrationSrc}
+                alt=""
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  opacity: INTENSITY_OPACITY[illustrationIntensity] ?? 0.12,
+                }}
+              />
+            </div>
+          )}
+
           {/* Tape decoration */}
           {hasTape && (
             <div
               style={{
                 position: 'absolute',
+                zIndex: 5,
                 top: '-7px',
                 left: '50%',
                 transform: 'translateX(-50%) rotate(-2deg)',
@@ -89,7 +122,7 @@ export default function CardPreview() {
 
           {/* Uploaded image banner */}
           {image && (
-            <div style={{ height: '150px', overflow: 'hidden', flexShrink: 0, borderBottom: '2px solid #3E2723' }}>
+            <div style={{ height: '150px', overflow: 'hidden', flexShrink: 0, borderBottom: '2px solid #3E2723', position: 'relative', zIndex: 1 }}>
               <img src={image} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </div>
           )}
@@ -107,6 +140,8 @@ export default function CardPreview() {
               fontFamily,
               color: textColor,
               textAlign,
+              position: 'relative',
+              zIndex: 1,
             }}
           >
             {/* To: line */}

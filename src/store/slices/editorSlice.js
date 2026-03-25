@@ -21,6 +21,8 @@ const initialState = {
   sticker: null,
   hasTape: true,
   shapes: [],  // [{ id, type, x, y, width, height }]
+  illustration: null,         // illustration id string or null
+  illustrationIntensity: 'subtle', // 'subtle' | 'medium' | 'bold'
 
   // Media
   image: null,        // base64 data URL
@@ -51,6 +53,8 @@ const editorSlice = createSlice({
     setFontSize:          (state, { payload }) => { state.fontSize = payload },
     setSticker:           (state, { payload }) => { state.sticker = payload },
     toggleTape:           (state)              => { state.hasTape = !state.hasTape },
+    setIllustration:      (state, { payload }) => { state.illustration = payload },
+    setIllustrationIntensity: (state, { payload }) => { state.illustrationIntensity = payload },
     addShape:             (state, { payload }) => { state.shapes.push(payload) },
     updateShape:          (state, { payload }) => {
       const shape = state.shapes.find(s => s.id === payload.id)
@@ -73,6 +77,7 @@ export const {
   addShape, updateShape, removeShape,
   setImage, setVoiceUrl, setIsRecording, setRecordingDuration, setActivePanel,
   setIsPreviewOpen, resetCard,
+  setIllustration, setIllustrationIntensity,
 } = editorSlice.actions
 
 export default editorSlice.reducer

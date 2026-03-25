@@ -1,11 +1,195 @@
+import { useState } from "react";
+import { createPortal } from "react-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setBackground, toggleTape } from "../../../store/slices/editorSlice";
-import { BACKGROUNDS } from "../../../store/constants/editorData";
-import { Paperclip } from "lucide-react";
+import {
+  setBackground,
+  toggleTape,
+  setIllustration,
+  setIllustrationIntensity,
+} from "../../../store/slices/editorSlice";
+import { BACKGROUNDS, ILLUSTRATIONS } from "../../../store/constants/editorData";
+import { Paperclip, ImagePlus, X, Check } from "lucide-react";
+
+const INTENSITIES = [
+  { id: "subtle", label: "Subtle", opacity: 0.12 },
+  { id: "medium", label: "Medium", opacity: 0.28 },
+  { id: "bold", label: "Bold", opacity: 0.5 },
+];
+
+function IllustrationModal({ onClose }) {
+  const dispatch = useDispatch();
+  const { illustration } = useSelector((s) => s.editor);
+
+  function handlePick(id) {
+    dispatch(setIllustration(illustration === id ? null : id));
+    onClose();
+  }
+
+  return createPortal(
+    <div
+      style={{
+        position: "fixed",
+        inset: 0,
+        background: "rgba(0,0,0,0.45)",
+        zIndex: 1000,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: "20px",
+      }}
+      onClick={onClose}
+    >
+      <div
+        style={{
+          background: "#FFF8E7",
+          border: "2.5px solid #3E2723",
+          borderRadius: "18px",
+          boxShadow: "7px 7px 0px #3E2723",
+          width: "100%",
+          maxWidth: "400px",
+          overflow: "hidden",
+        }}
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Header */}
+        <div
+          style={{
+            borderBottom: "2px solid #3E2723",
+            padding: "16px 20px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            background: "#ffffff",
+          }}
+        >
+          <h2
+            style={{
+              fontFamily: "'Caveat', cursive",
+              fontSize: "22px",
+              fontWeight: 800,
+              color: "#3E2723",
+              margin: 0,
+            }}
+          >
+            Pick an Illustration
+          </h2>
+          <button
+            onClick={onClose}
+            style={{
+              background: "none",
+              border: "2px solid #3E2723",
+              borderRadius: "8px",
+              cursor: "pointer",
+              padding: "4px",
+              display: "flex",
+              alignItems: "center",
+              color: "#3E2723",
+            }}
+          >
+            <X size={16} />
+          </button>
+        </div>
+
+        {/* Grid */}
+        <div
+          style={{
+            padding: "20px",
+            display: "grid",
+            gridTemplateColumns: "repeat(3, 1fr)",
+            gap: "12px",
+          }}
+        >
+          {ILLUSTRATIONS.map((il) => {
+            const isSelected = illustration === il.id;
+            return (
+              <button
+                key={il.id}
+                onClick={() => handlePick(il.id)}
+                style={{
+                  background: "#ffffff",
+                  border: isSelected ? "2.5px solid #3E2723" : "2px solid #3E2723",
+                  borderRadius: "14px",
+                  padding: "8px",
+                  cursor: "pointer",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  gap: "8px",
+                  transition: "all 0.12s",
+                  boxShadow: isSelected
+                    ? "4px 4px 0px #3E2723"
+                    : "3px 3px 0px #3E2723",
+                  transform: isSelected ? "translate(-1px, -1px)" : "none",
+                  position: "relative",
+                }}
+                onMouseEnter={(e) => {
+                  if (!isSelected) {
+                    e.currentTarget.style.transform = "translate(-1px, -1px)";
+                    e.currentTarget.style.boxShadow = "4px 4px 0px #3E2723";
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (!isSelected) {
+                    e.currentTarget.style.transform = "none";
+                    e.currentTarget.style.boxShadow = "3px 3px 0px #3E2723";
+                  }
+                }}
+              >
+                <img
+                  src={il.src}
+                  alt={il.label}
+                  style={{
+                    width: "100%",
+                    aspectRatio: "1",
+                    objectFit: "cover",
+                    borderRadius: "8px",
+                  }}
+                />
+                <span
+                  style={{
+                    fontFamily: "'Quicksand', sans-serif",
+                    fontSize: "12px",
+                    fontWeight: 700,
+                    color: "#3E2723",
+                  }}
+                >
+                  {il.label}
+                </span>
+                {isSelected && (
+                  <div
+                    style={{
+                      position: "absolute",
+                      top: "6px",
+                      right: "6px",
+                      width: "20px",
+                      height: "20px",
+                      background: "#3E2723",
+                      borderRadius: "50%",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Check size={12} color="#FFF8E7" />
+                  </div>
+                )}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+    </div>,
+    document.body
+  );
+}
 
 export default function BackgroundPanel() {
   const dispatch = useDispatch();
-  const { background, hasTape } = useSelector((s) => s.editor);
+  const { background, hasTape, illustration, illustrationIntensity } =
+    useSelector((s) => s.editor);
+  const [showModal, setShowModal] = useState(false);
+
+  const activeIllustration = ILLUSTRATIONS.find((il) => il.id === illustration);
 
   return (
     <div className="space-y-6">
@@ -67,6 +251,142 @@ export default function BackgroundPanel() {
         </div>
       </div>
 
+      {/* Illustrations */}
+      <div>
+        <h3
+          className="font-bold text-ink text-base mb-3"
+          style={{ fontFamily: "'Caveat', cursive", fontSize: "20px" }}
+        >
+          Illustrations
+        </h3>
+        <p className="text-xs text-ink/50 mb-4">
+          Add a decorative illustration to your card background
+        </p>
+
+        {/* Current illustration or pick button */}
+        {activeIllustration ? (
+          <div
+            style={{
+              border: "2px solid #3E2723",
+              borderRadius: "14px",
+              overflow: "hidden",
+              boxShadow: "3px 3px 0px #3E2723",
+              marginBottom: "12px",
+            }}
+          >
+            <div style={{ position: "relative" }}>
+              <img
+                src={activeIllustration.src}
+                alt={activeIllustration.label}
+                style={{ width: "100%", height: "96px", objectFit: "cover", display: "block" }}
+              />
+              <button
+                onClick={() => dispatch(setIllustration(null))}
+                style={{
+                  position: "absolute",
+                  top: "8px",
+                  right: "8px",
+                  background: "#3E2723",
+                  border: "none",
+                  borderRadius: "6px",
+                  cursor: "pointer",
+                  padding: "4px",
+                  display: "flex",
+                  alignItems: "center",
+                  color: "#FFF8E7",
+                }}
+              >
+                <X size={14} />
+              </button>
+            </div>
+            <div
+              style={{
+                padding: "8px 12px",
+                background: "#ffffff",
+                borderTop: "2px solid #3E2723",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
+            >
+              <span
+                style={{
+                  fontFamily: "'Quicksand', sans-serif",
+                  fontSize: "13px",
+                  fontWeight: 700,
+                  color: "#3E2723",
+                }}
+              >
+                {activeIllustration.label}
+              </span>
+              <button
+                onClick={() => setShowModal(true)}
+                style={{
+                  fontFamily: "'Quicksand', sans-serif",
+                  fontSize: "12px",
+                  fontWeight: 600,
+                  color: "#3E2723",
+                  background: "none",
+                  border: "1.5px solid rgba(62,39,35,0.35)",
+                  borderRadius: "6px",
+                  padding: "2px 8px",
+                  cursor: "pointer",
+                }}
+              >
+                Change
+              </button>
+            </div>
+          </div>
+        ) : (
+          <button
+            onClick={() => setShowModal(true)}
+            className="flex items-center gap-3 w-full p-3 rounded-xl border-2 border-dashed transition-all text-left border-ink/30 hover:border-ink/60"
+          >
+            <ImagePlus size={22} className="text-ink/50" />
+            <div>
+              <p className="font-semibold text-ink text-sm">Add Illustration</p>
+              <p className="text-xs text-ink/50">Decorative background pattern</p>
+            </div>
+          </button>
+        )}
+
+        {/* Intensity picker — only shown when an illustration is active */}
+        {illustration && (
+          <div className="mt-3">
+            <p className="text-xs text-ink/50 mb-2">Intensity</p>
+            <div className="flex gap-2">
+              {INTENSITIES.map((level) => {
+                const isActive = illustrationIntensity === level.id;
+                return (
+                  <button
+                    key={level.id}
+                    onClick={() => dispatch(setIllustrationIntensity(level.id))}
+                    style={{
+                      flex: 1,
+                      padding: "6px 4px",
+                      border: isActive
+                        ? "2.5px solid #3E2723"
+                        : "2px solid rgba(62,39,35,0.25)",
+                      borderRadius: "10px",
+                      background: isActive ? "#3E2723" : "#ffffff",
+                      boxShadow: isActive ? "2px 2px 0px #3E2723" : "none",
+                      cursor: "pointer",
+                      fontFamily: "'Quicksand', sans-serif",
+                      fontSize: "12px",
+                      fontWeight: 700,
+                      color: isActive ? "#FFF8E7" : "#3E2723",
+                      transition: "all 0.12s",
+                    }}
+                  >
+                    {level.label}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        )}
+      </div>
+
       {/* Tape toggle */}
       <div>
         <h3
@@ -102,6 +422,8 @@ export default function BackgroundPanel() {
           </div>
         </button>
       </div>
+
+      {showModal && <IllustrationModal onClose={() => setShowModal(false)} />}
     </div>
   );
 }
