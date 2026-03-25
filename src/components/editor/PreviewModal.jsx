@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { setIsPreviewOpen } from '../../store/slices/editorSlice'
 import { FONTS } from '../../store/constants/editorData'
+import { SHAPES } from '../svg'
 
 // ── Envelope dimensions ────────────────────────────────────────────────────────
 const EW = 460   // envelope width
@@ -20,16 +21,24 @@ function FullCard({ forClean = false }) {
   const {
     background, tag, recipientName, title, message, senderName,
     font, textColor, textAlign, fontSize, sticker, hasTape, image,
-    voiceUrl, recordingDuration,
+    voiceUrl, recordingDuration, shapes,
   } = useSelector(s => s.editor)
 
   const fontFamily = FONTS.find(f => f.id === font)?.family ?? "'Caveat', cursive"
-  const msgSize    = { sm: '15px', md: '18px', lg: '22px' }[fontSize]
-  const headSize   = { sm: '26px', md: '34px', lg: '44px' }[fontSize]
+  // Match CardPreview exactly so card height is identical and shapes align
+  const msgSize    = { sm: '14px', md: '17px', lg: '21px' }[fontSize]
+  const headSize   = { sm: '24px', md: '30px', lg: '40px' }[fontSize]
   const fmtTime    = s =>
     `${Math.floor(s / 60).toString().padStart(2, '0')}:${(s % 60).toString().padStart(2, '0')}`
 
-  const cardW = forClean ? `${EW - 60}px` : `${EW - CARD_LEFT * 2}px`
+  // The editor card renders at maxWidth 520px; match that in the clean (done) phase.
+  // During the envelope animation the card must fit inside the stage (EW wide),
+  // so we keep it at 400px there and scale shapes proportionally.
+  const EDITOR_CARD_W = 520
+  const animCardW     = EW - CARD_LEFT * 2          // 400
+  const previewW      = forClean ? EDITOR_CARD_W : animCardW
+  const shapeScale    = previewW / EDITOR_CARD_W    // 1.0 for clean, ~0.77 for anim
+  const cardW         = `${previewW}px`
 
   return (
     <div style={{ position: 'relative' }}>
@@ -60,9 +69,36 @@ function FullCard({ forClean = false }) {
         border: '2.5px solid #3E2723',
         borderRadius: '18px',
         boxShadow: '8px 8px 0px #3E2723',
-        overflow: 'hidden',
+        overflow: 'visible',
         position: 'relative',
+        minHeight: '300px',
+        display: 'flex',
+        flexDirection: 'column',
       }}>
+        {/* Placed shapes */}
+        {shapes?.map(shape => {
+          const def = SHAPES.find(s => s.id === shape.type)
+          if (!def) return null
+          const sw = Math.round(shape.width  * shapeScale)
+          const sh = Math.round(shape.height * shapeScale)
+          return (
+            <div
+              key={shape.id}
+              style={{
+                position: 'absolute',
+                left: Math.round(shape.x * shapeScale),
+                top:  Math.round(shape.y * shapeScale),
+                width: sw,
+                height: sh,
+                pointerEvents: 'none',
+                zIndex: 10,
+              }}
+            >
+              <def.Component width={sw} height={sh} />
+            </div>
+          )
+        })}
+
         {hasTape && (
           <div style={{
             position: 'absolute', top: '-8px', left: '50%',
@@ -80,7 +116,7 @@ function FullCard({ forClean = false }) {
           </div>
         )}
 
-        <div style={{ padding: '34px 30px 26px', fontFamily, color: textColor, textAlign }}>
+        <div style={{ padding: '32px 28px 22px', flex: 1, display: 'flex', flexDirection: 'column', fontFamily, color: textColor, textAlign }}>
           {recipientName && (
             <p style={{
               fontSize: '12px', fontFamily: "'Quicksand', sans-serif",
@@ -92,34 +128,35 @@ function FullCard({ forClean = false }) {
           )}
           {title && (
             <h2 style={{
-              fontSize: headSize, fontWeight: 800,
-              lineHeight: 1.15, marginBottom: '14px', fontFamily,
+              fontSize: headSize, fontWeight: font === 'mono' ? 700 : 800,
+              lineHeight: 1.15, marginBottom: '12px', fontFamily,
+              color: textColor, textAlign, wordBreak: 'break-word',
             }}>
               {title}
             </h2>
           )}
           <div style={{
-            width: '40px', height: '3px', borderRadius: '2px',
-            background: textColor, opacity: 0.2, marginBottom: '16px',
+            width: '36px', height: '3px', borderRadius: '2px',
+            background: textColor, opacity: 0.3, marginBottom: '14px',
             marginLeft: textAlign === 'center' ? 'auto' : textAlign === 'right' ? 'auto' : 0,
             marginRight: textAlign === 'center' ? 'auto' : textAlign === 'right' ? 0 : 'auto',
           }} />
           <p style={{
-            fontSize: msgSize, lineHeight: 1.75, fontFamily,
-            whiteSpace: 'pre-wrap', wordBreak: 'break-word',
+            fontSize: msgSize, lineHeight: 1.7, flex: 1, fontFamily,
+            color: textColor, textAlign, whiteSpace: 'pre-wrap', wordBreak: 'break-word',
           }}>
             {message}
           </p>
           <div style={{
             display: 'flex', justifyContent: 'space-between',
-            alignItems: 'flex-end', marginTop: '20px',
+            alignItems: 'flex-end', marginTop: '18px',
             flexWrap: 'wrap', gap: '8px',
           }}>
             {voiceUrl ? (
               <div style={{
                 display: 'flex', alignItems: 'center', gap: '6px',
-                fontSize: '12px', fontFamily: "'Quicksand', sans-serif",
-                opacity: 0.6, background: 'rgba(0,0,0,0.07)',
+                fontSize: '11px', fontFamily: "'Quicksand', sans-serif",
+                opacity: 0.65, color: textColor, background: 'rgba(0,0,0,0.06)',
                 borderRadius: '20px', padding: '3px 10px',
                 border: '1px solid rgba(0,0,0,0.1)',
               }}>
@@ -127,9 +164,9 @@ function FullCard({ forClean = false }) {
               </div>
             ) : <div />}
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '6px' }}>
-              {sticker && <span style={{ fontSize: '36px', lineHeight: 1 }}>{sticker}</span>}
+              {sticker && <span style={{ fontSize: '32px', lineHeight: 1 }}>{sticker}</span>}
               {senderName && (
-                <p style={{ fontSize: '15px', fontStyle: 'italic', fontFamily, opacity: 0.75 }}>
+                <p style={{ fontSize: '14px', fontStyle: 'italic', fontFamily, color: textColor, opacity: 0.8 }}>
                   — {senderName}
                 </p>
               )}
@@ -226,7 +263,7 @@ export default function PreviewModal() {
           style={{
             position: 'fixed', inset: 0, zIndex: 9000,
             background: 'rgba(10, 5, 2, 0.93)',
-            backdropFilter: 'blur(6px)',
+            backdropFilter: 'blur(4px)',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             overflowY: 'auto', padding: '60px 20px',
           }}

@@ -51,9 +51,7 @@ export default function ShapePanel() {
                   key={shape.id}
                   className="flex items-center gap-3 p-2 rounded-xl border-2 border-ink/20 bg-white"
                 >
-                  <div style={{ flexShrink: 0, display: 'flex' }}>
-                    {def && <def.Component />}
-                  </div>
+                  {def && <def.Component width={32} height={32} />}
                   <span
                     className="flex-1 text-sm font-semibold text-ink"
                     style={{ fontFamily: "'Quicksand', sans-serif" }}

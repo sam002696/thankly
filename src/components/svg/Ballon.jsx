@@ -1,6 +1,6 @@
 import React from "react";
 
-const Ballon = () => {
+const Ballon = ({ width = 56, height = 56 }) => {
   return (
     <svg
       fill="#ef4444"
@@ -8,8 +8,8 @@ const Ballon = () => {
       id="Capa_1"
       xmlns="http://www.w3.org/2000/svg"
       xmlns:xlink="http://www.w3.org/1999/xlink"
-      width="56px"
-      height="56px"
+      width={width}
+      height={height}
       viewBox="0 0 495.165 495.165"
       xml:space="preserve"
     >

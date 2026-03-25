@@ -119,9 +119,7 @@ export default function ShapePickerModal({ onClose }) {
                 e.currentTarget.style.boxShadow = '3px 3px 0px #3E2723'
               }}
             >
-              <div style={{ width: '56px', height: '56px', display: 'flex' }}>
-                <shape.Component />
-              </div>
+              <shape.Component width={56} height={56} />
               <span
                 style={{
                   fontFamily: "'Quicksand', sans-serif",

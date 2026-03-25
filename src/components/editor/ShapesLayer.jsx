@@ -102,9 +102,7 @@ export default function ShapesLayer() {
               )}
 
               {/* SVG shape fills the container */}
-              <div style={{ width: '100%', height: '100%', display: 'flex' }}>
-                <Component />
-              </div>
+              <Component width={shape.width} height={shape.height} />
             </div>
           </Rnd>
         )

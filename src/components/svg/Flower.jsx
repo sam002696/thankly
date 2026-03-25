@@ -1,10 +1,10 @@
 import React from "react";
 
-const Flower = () => {
+const Flower = ({ width = 56, height = 56 }) => {
   return (
     <svg
-      width="56px"
-      height="56px"
+      width={width}
+      height={height}
       viewBox="0 -0.19 241.35 241.35"
       xmlns="http://www.w3.org/2000/svg"
       fill="#ef4444"
