@@ -1,5 +1,6 @@
 import { useSelector } from 'react-redux'
 import { FONTS } from '../../store/constants/editorData'
+import ShapesLayer from './ShapesLayer'
 
 export default function CardPreview() {
   const {
@@ -60,7 +61,7 @@ export default function CardPreview() {
             border: '2.5px solid #3E2723',
             borderRadius: '18px',
             boxShadow: '7px 7px 0px #3E2723',
-            overflow: 'hidden',
+            overflow: 'visible',
             position: 'relative',
             minHeight: '300px',
             display: 'flex',
@@ -92,6 +93,9 @@ export default function CardPreview() {
               <img src={image} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </div>
           )}
+
+          {/* Shapes layer */}
+          <ShapesLayer />
 
           {/* Card content */}
           <div

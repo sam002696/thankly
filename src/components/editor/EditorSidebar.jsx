@@ -6,7 +6,8 @@ import TextPanel from "./panels/TextPanel";
 import StickerPanel from "./panels/StickerPanel";
 import ImagePanel from "./panels/ImagePanel";
 import VoicePanel from "./panels/VoicePanel";
-import { Palette, Tag, Type, Sparkles, Image, Mic } from "lucide-react";
+import ShapePanel from "./panels/ShapePanel";
+import { Palette, Tag, Type, Sparkles, Image, Mic, Shapes } from "lucide-react";
 
 const TABS = [
   { id: "background", icon: Palette, label: "Background" },
@@ -14,6 +15,7 @@ const TABS = [
   { id: "text", icon: Type, label: "Text" },
   { id: "stickers", icon: Sparkles, label: "Stickers" },
   { id: "image", icon: Image, label: "Image" },
+  { id: "shapes", icon: Shapes, label: "Shapes" },
   { id: "voice", icon: Mic, label: "Voice" },
 ];
 
@@ -27,6 +29,7 @@ export default function EditorSidebar() {
     text: <TextPanel />,
     stickers: <StickerPanel />,
     image: <ImagePanel />,
+    shapes: <ShapePanel />,
     voice: <VoicePanel />,
   };
 
