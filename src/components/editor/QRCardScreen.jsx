@@ -4,6 +4,7 @@ import { QRCodeSVG } from "qrcode.react";
 import { Link } from "react-router-dom";
 import { ArrowLeft, Download, HeartIcon, Loader2 } from "lucide-react";
 import Button from "../ui/Button";
+import EditorHeader from "./EditorHeader";
 
 const MOCK_URL = "https://thankly.app/card/abc123";
 
@@ -72,33 +73,11 @@ export default function QRCardScreen({ onBack }) {
   return (
     <div className="flex flex-col h-screen overflow-hidden bg-cream">
       {/* Header — same as editor */}
-      <header
-        className="flex items-center justify-between px-6 py-4 border-b-2 border-ink bg-cream shrink-0"
-        style={{ boxShadow: "0 2px 0px #3E2723" }}
-      >
-        <Link to="/" className="flex items-center gap-2 group">
-          <div
-            className="w-8 h-8 rounded-full bg-brand border-2 border-ink flex items-center justify-center"
-            style={{ boxShadow: "var(--shadow-hard-sm)" }}
-          >
-            <HeartIcon size={14} fill="white" />
-          </div>
-          <span
-            className="font-bold text-ink text-lg hidden sm:block"
-            style={{ fontFamily: "'Caveat', cursive" }}
-          >
-            Thankly
-          </span>
-        </Link>
-
-        <span
-          className="text-lg font-bold text-ink"
-          style={{ fontFamily: "'Caveat', cursive", fontSize: "22px" }}
-        >
-          QR Card
-        </span>
-
-        <div className="flex items-center gap-3">
+      <EditorHeader
+        title="QR Card"
+        showReset={false}
+        showPreview={false}
+        leftAction={
           <button
             onClick={onBack}
             className="flex items-center gap-2 text-sm font-bold text-ink border-2 border-ink rounded-full px-4 py-2 transition-all hover:bg-ink hover:text-cream"
@@ -110,7 +89,8 @@ export default function QRCardScreen({ onBack }) {
             <ArrowLeft size={16} />
             <span className="hidden sm:block">Back to Editor</span>
           </button>
-
+        }
+        rightActions={
           <Button
             variant="primary"
             size="sm"
@@ -125,8 +105,8 @@ export default function QRCardScreen({ onBack }) {
             )}
             {downloading ? "Saving…" : "Download"}
           </Button>
-        </div>
-      </header>
+        }
+      />
 
       {/* Main content */}
       <main
