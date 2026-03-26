@@ -13,7 +13,7 @@ const TABS = [
   { id: "background", icon: Palette, label: "Background" },
   { id: "tag", icon: Tag, label: "Tag" },
   { id: "text", icon: Type, label: "Text" },
-  { id: "stickers", icon: Sparkles, label: "Stickers" },
+  // { id: "stickers", icon: Sparkles, label: "Stickers" },
   { id: "image", icon: Image, label: "Image" },
   { id: "shapes", icon: Shapes, label: "Shapes" },
   { id: "voice", icon: Mic, label: "Voice" },
@@ -45,7 +45,7 @@ export default function EditorSidebar() {
       }}
     >
       {/* Tab bar */}
-      <div className="flex border-b-2 border-ink bg-cream overflow-x-auto shrink-0">
+      <div className="flex border-b-2 border-ink bg-cream overflow-x-auto  overflow-y-hidden shrink-0">
         {TABS.map((tab) => {
           const Icon = tab.icon;
 
