@@ -55,7 +55,7 @@ export default function EditorSidebar() {
               onClick={() => dispatch(setActivePanel(tab.id))}
               title={tab.label}
               className={[
-                "flex flex-col items-center gap-0.5 px-3 py-3 text-xs font-semibold transition-all flex-1  border-b-2 -mb-[2px]",
+                "flex flex-col items-center gap-0.5 px-3 py-3 text-xs font-semibold transition-all flex-1  border-b-2 -mb-0.5",
                 activePanel === tab.id
                   ? "border-brand text-brand bg-white"
                   : "border-transparent text-ink/60 hover:text-ink hover:bg-black/5",

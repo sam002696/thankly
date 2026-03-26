@@ -7,8 +7,8 @@ const HeroSection = ({ onCreateCard }) => (
     <div className="absolute inset-0 z-0 flex">
       <div className="w-1/2 h-full bg-cream"></div>
       <div className="w-[55%] h-full absolute right-0 top-0 z-0" style={{ ...verticalTornEdge, backgroundColor: colors.accent }}>
-        <div className="absolute top-[-10%] right-[-10%] w-[600px] h-[600px] bg-brand/20 blur-3xl" style={blobShape}></div>
-        <div className="absolute bottom-[-20%] right-[10%] w-[500px] h-[500px] bg-cream/20 blur-2xl" style={blobShape2}></div>
+        <div className="absolute top-[-10%] right-[-10%] w-150 h-150 bg-brand/20 blur-3xl" style={blobShape}></div>
+        <div className="absolute bottom-[-20%] right-[10%] w-125 h-125 bg-cream/20 blur-2xl" style={blobShape2}></div>
       </div>
     </div>
 
@@ -63,7 +63,7 @@ const HeroSection = ({ onCreateCard }) => (
         </div>
       </div>
 
-      <div className="relative h-[600px] w-full flex items-center justify-center">
+      <div className="relative h-150 w-full flex items-center justify-center">
         <div className="relative w-full max-w-md aspect-square">
           <div className="absolute inset-4 rounded-full border-4 border-dashed border-cream/40" style={{ animation: 'spin 60s linear infinite' }}></div>
           <div className="absolute top-10 right-10 w-24 h-24 bg-brand rounded-full mix-blend-multiply opacity-80 blur-xl"></div>
@@ -83,7 +83,7 @@ const HeroSection = ({ onCreateCard }) => (
                 </svg>
               </div>
               <div className="absolute bottom-16 left-1/2 -translate-x-1/2 w-56 h-24 flex justify-between z-20">
-                <div className="w-24 h-12 bg-[#FFD1B3] rounded-full border-4 border-ink rotate-[20deg] origin-right translate-y-8"></div>
+                <div className="w-24 h-12 bg-[#FFD1B3] rounded-full border-4 border-ink rotate-20 origin-right translate-y-8"></div>
                 <div className="w-24 h-12 bg-[#FFD1B3] rounded-full border-4 border-ink rotate-[-20deg] origin-left translate-y-8"></div>
               </div>
               <div className="absolute bottom-12 left-1/2 -translate-x-1/2 z-30 transform hover:scale-110 transition-transform cursor-pointer">
@@ -97,11 +97,11 @@ const HeroSection = ({ onCreateCard }) => (
           <svg className="absolute top-12 left-0 w-10 h-10 text-cream rotate-[-15deg]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
           </svg>
-          <svg className="absolute bottom-24 right-0 w-8 h-8 text-cream rotate-[25deg]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <svg className="absolute bottom-24 right-0 w-8 h-8 text-cream rotate-25" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
           </svg>
 
-          <div className="absolute top-20 right-[-20px] bg-white border-2 border-ink rounded-[2rem] rounded-bl-none p-4 shadow-md rotate-3 z-40">
+          <div className="absolute top-20 -right-5 bg-white border-2 border-ink rounded-4xl rounded-bl-none p-4 shadow-md rotate-3 z-40">
             <span style={{ fontFamily: 'Caveat, cursive' }} className="text-2xl text-ink font-bold">You're amazing!</span>
           </div>
         </div>
