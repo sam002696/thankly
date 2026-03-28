@@ -55,7 +55,7 @@ export default function BackgroundPanel() {
                   border: isSelected
                     ? "2.5px solid #3E2723"
                     : "2px solid rgba(62,39,35,0.2)",
-                  boxShadow: isSelected ? "3px 3px 0px #3E2723" : "none",
+                  boxShadow: isSelected ? "var(--shadow-hard-xs)" : "none",
                   transform: isSelected ? "translate(-1px, -1px)" : "none",
                 }}
                 className="w-12 h-12 rounded-lg transition-all hover:-translate-y-px relative flex items-center justify-center"
@@ -107,7 +107,7 @@ export default function BackgroundPanel() {
               border: "2px solid #3E2723",
               borderRadius: "14px",
               overflow: "hidden",
-              boxShadow: "3px 3px 0px #3E2723",
+              boxShadow: "var(--shadow-hard-xs)",
               marginBottom: "12px",
             }}
           >
@@ -213,7 +213,7 @@ export default function BackgroundPanel() {
                         : "2px solid rgba(62,39,35,0.25)",
                       borderRadius: "10px",
                       background: isActive ? "#3E2723" : "#ffffff",
-                      boxShadow: isActive ? "2px 2px 0px #3E2723" : "none",
+                      boxShadow: isActive ? "var(--shadow-hard-sm)" : "none",
                       cursor: "pointer",
                       fontFamily: "'Quicksand', sans-serif",
                       fontSize: "12px",

@@ -214,7 +214,7 @@ export default function QRCardScreen({ onBack }) {
               border: "2px solid #3E2723",
               borderRadius: 16,
               padding: 20,
-              boxShadow: "4px 4px 0px #3E2723",
+              boxShadow: "var(--shadow-hard)",
               marginBottom: 28,
             }}
           >

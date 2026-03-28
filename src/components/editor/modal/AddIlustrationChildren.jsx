@@ -33,21 +33,21 @@ const AddIlustrationChildren = ({
               gap: "8px",
               transition: "all 0.12s",
               boxShadow: isSelected
-                ? "4px 4px 0px #3E2723"
-                : "3px 3px 0px #3E2723",
+                ? "var(--shadow-hard)"
+                : "var(--shadow-hard-xs)",
               transform: isSelected ? "translate(-1px, -1px)" : "none",
               position: "relative",
             }}
             onMouseEnter={(e) => {
               if (!isSelected) {
                 e.currentTarget.style.transform = "translate(-1px, -1px)";
-                e.currentTarget.style.boxShadow = "4px 4px 0px #3E2723";
+                e.currentTarget.style.boxShadow = "var(--shadow-hard)";
               }
             }}
             onMouseLeave={(e) => {
               if (!isSelected) {
                 e.currentTarget.style.transform = "none";
-                e.currentTarget.style.boxShadow = "3px 3px 0px #3E2723";
+                e.currentTarget.style.boxShadow = "var(--shadow-hard-xs)";
               }
             }}
           >

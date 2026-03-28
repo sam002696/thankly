@@ -20,7 +20,7 @@ export default function Modal({ onClose, title, subtitle, maxWidth = "max-w-sm",
     >
       <div
         className={`relative bg-cream border-2 border-ink rounded-3xl p-8 w-full ${maxWidth}`}
-        style={{ boxShadow: "8px 8px 0px #3E2723" }}
+        style={{ boxShadow: "var(--shadow-hard-xl)" }}
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close button */}

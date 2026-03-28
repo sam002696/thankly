@@ -11,7 +11,7 @@ const SendCardChildren = ({ setShowSendModal, setShowQRCard }) => {
           setShowQRCard(true);
         }}
         className="group flex items-start gap-4 p-4 rounded-2xl border-2 border-ink bg-white hover:bg-brand hover:text-white transition-all text-left"
-        style={{ boxShadow: "4px 4px 0px #3E2723" }}
+        style={{ boxShadow: "var(--shadow-hard)" }}
       >
         <div className="mt-0.5 w-10 h-10 rounded-xl bg-brand/10 group-hover:bg-white/20 flex items-center justify-center shrink-0 transition-colors">
           <QrCode size={20} className="text-brand group-hover:text-white" />
@@ -34,7 +34,7 @@ const SendCardChildren = ({ setShowSendModal, setShowQRCard }) => {
         variant="raw"
         onClick={() => setShowSendModal(false)}
         className="group flex items-start gap-4 p-4 rounded-2xl border-2 border-ink bg-white hover:bg-accent hover:text-white transition-all text-left"
-        style={{ boxShadow: "4px 4px 0px #3E2723" }}
+        style={{ boxShadow: "var(--shadow-hard)" }}
       >
         <div className="mt-0.5 w-10 h-10 rounded-xl bg-accent/10 group-hover:bg-white/20 flex items-center justify-center shrink-0 transition-colors">
           <BookImage size={20} className="text-accent group-hover:text-white" />

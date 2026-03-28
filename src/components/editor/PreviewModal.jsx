@@ -74,7 +74,7 @@ function FullCard({ forClean = false }) {
         background,
         border: '2.5px solid #3E2723',
         borderRadius: '18px',
-        boxShadow: '8px 8px 0px #3E2723',
+        boxShadow: 'var(--shadow-hard-xl)',
         overflow: 'visible',
         position: 'relative',
         minHeight: '300px',
@@ -433,7 +433,7 @@ export default function PreviewModal() {
               background: '#F2EDE0',
               border: '2.5px solid #3E2723',
               borderRadius: '4px 4px 16px 16px',
-              boxShadow: '8px 8px 0px #3E2723',
+              boxShadow: 'var(--shadow-hard-xl)',
               position: 'relative',
               overflow: 'hidden',
             }}>
@@ -486,7 +486,7 @@ export default function PreviewModal() {
                 position: 'absolute', bottom: '18px', left: '22px',
                 width: '34px', height: '34px', borderRadius: '50%',
                 background: '#ef4444', border: '2px solid #3E2723',
-                boxShadow: '2px 2px 0px #3E2723',
+                boxShadow: 'var(--shadow-hard-sm)',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                 fontSize: '15px',
               }}>❤️</div>

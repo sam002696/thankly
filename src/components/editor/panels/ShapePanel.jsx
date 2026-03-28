@@ -27,7 +27,7 @@ export default function ShapePanel() {
         <button
           onClick={() => setPickerOpen(true)}
           className="flex items-center gap-2 w-full justify-center py-3 rounded-xl border-2 border-ink font-semibold text-ink text-sm transition-all hover:-translate-y-px"
-          style={{ boxShadow: '3px 3px 0px #3E2723', background: '#fff' }}
+          style={{ boxShadow: 'var(--shadow-hard-xs)', background: '#fff' }}
         >
           <Plus size={16} />
           Add Shape

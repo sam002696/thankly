@@ -38,7 +38,7 @@ export default function ShapePickerModal({ onClose }) {
           background: '#FFF8E7',
           border: '2.5px solid #3E2723',
           borderRadius: '18px',
-          boxShadow: '7px 7px 0px #3E2723',
+          boxShadow: 'var(--shadow-hard-xl)',
           width: '100%',
           maxWidth: '400px',
           overflow: 'hidden',
@@ -108,15 +108,15 @@ export default function ShapePickerModal({ onClose }) {
                 alignItems: 'center',
                 gap: '8px',
                 transition: 'all 0.12s',
-                boxShadow: '3px 3px 0px #3E2723',
+                boxShadow: 'var(--shadow-hard-xs)',
               }}
               onMouseEnter={e => {
                 e.currentTarget.style.transform = 'translate(-1px, -1px)'
-                e.currentTarget.style.boxShadow = '4px 4px 0px #3E2723'
+                e.currentTarget.style.boxShadow = 'var(--shadow-hard)'
               }}
               onMouseLeave={e => {
                 e.currentTarget.style.transform = 'none'
-                e.currentTarget.style.boxShadow = '3px 3px 0px #3E2723'
+                e.currentTarget.style.boxShadow = 'var(--shadow-hard-xs)'
               }}
             >
               <shape.Component width={56} height={56} />

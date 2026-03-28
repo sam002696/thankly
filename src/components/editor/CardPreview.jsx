@@ -67,7 +67,7 @@ export default function CardPreview() {
             backgroundColor: background,
             border: '2.5px solid #3E2723',
             borderRadius: '18px',
-            boxShadow: '7px 7px 0px #3E2723',
+            boxShadow: 'var(--shadow-hard-xl)',
             overflow: 'visible',
             position: 'relative',
             minHeight: '300px',

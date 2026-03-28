@@ -43,7 +43,7 @@ export default function TagPanel() {
                 onClick={() => dispatch(setTag(t))}
                 style={{
                   border: isSelected ? '2.5px solid #3E2723' : '2px solid rgba(62,39,35,0.15)',
-                  boxShadow: isSelected ? '3px 3px 0px #3E2723' : 'none',
+                  boxShadow: isSelected ? 'var(--shadow-hard-xs)' : 'none',
                   transform: isSelected ? 'translate(-1px, -1px)' : 'none',
                 }}
                 className="rounded-xl p-3 transition-all hover:border-ink/50 flex items-center gap-3"
