@@ -6,9 +6,13 @@ import {
   setIllustration,
   setIllustrationIntensity,
 } from "../../../store/slices/editorSlice";
-import { BACKGROUNDS, ILLUSTRATIONS } from "../../../store/constants/editorData";
-import { Paperclip, ImagePlus, X, Check } from "lucide-react";
+import {
+  BACKGROUNDS,
+  ILLUSTRATIONS,
+} from "../../../store/constants/editorData";
+import { Paperclip, ImagePlus, X } from "lucide-react";
 import Modal from "../../ui/Modal";
+import AddIlustrationChildren from "../modal/AddIlustrationChildren";
 
 const INTENSITIES = [
   { id: "subtle", label: "Subtle", opacity: 0.12 },
@@ -23,11 +27,6 @@ export default function BackgroundPanel() {
   const [showModal, setShowModal] = useState(false);
 
   const activeIllustration = ILLUSTRATIONS.find((il) => il.id === illustration);
-
-  function handlePick(id) {
-    dispatch(setIllustration(illustration === id ? null : id));
-    setShowModal(false);
-  }
 
   return (
     <div className="space-y-6">
@@ -116,7 +115,12 @@ export default function BackgroundPanel() {
               <img
                 src={activeIllustration.src}
                 alt={activeIllustration.label}
-                style={{ width: "100%", height: "96px", objectFit: "cover", display: "block" }}
+                style={{
+                  width: "100%",
+                  height: "96px",
+                  objectFit: "cover",
+                  display: "block",
+                }}
               />
               <button
                 onClick={() => dispatch(setIllustration(null))}
@@ -183,7 +187,9 @@ export default function BackgroundPanel() {
             <ImagePlus size={22} className="text-ink/50" />
             <div>
               <p className="font-semibold text-ink text-sm">Add Illustration</p>
-              <p className="text-xs text-ink/50">Decorative background pattern</p>
+              <p className="text-xs text-ink/50">
+                Decorative background pattern
+              </p>
             </div>
           </button>
         )}
@@ -263,85 +269,19 @@ export default function BackgroundPanel() {
 
       {/* Illustration picker modal */}
       {showModal && (
-        <Modal onClose={() => setShowModal(false)} title="Pick an Illustration" maxWidth="max-w-md">
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(3, 1fr)",
-              gap: "12px",
+        <Modal
+          onClose={() => setShowModal(false)}
+          title="Pick an Illustration"
+          maxWidth="max-w-md"
+        >
+          <AddIlustrationChildren
+            ILLUSTRATIONS={ILLUSTRATIONS}
+            illustration={illustration}
+            handlePick={(id) => {
+              dispatch(setIllustration(id));
+              setShowModal(false);
             }}
-          >
-            {ILLUSTRATIONS.map((il) => {
-              const isSelected = illustration === il.id;
-              return (
-                <button
-                  key={il.id}
-                  onClick={() => handlePick(il.id)}
-                  style={{
-                    background: "#ffffff",
-                    border: isSelected ? "2.5px solid #3E2723" : "2px solid #3E2723",
-                    borderRadius: "14px",
-                    padding: "8px",
-                    cursor: "pointer",
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    gap: "8px",
-                    transition: "all 0.12s",
-                    boxShadow: isSelected ? "4px 4px 0px #3E2723" : "3px 3px 0px #3E2723",
-                    transform: isSelected ? "translate(-1px, -1px)" : "none",
-                    position: "relative",
-                  }}
-                  onMouseEnter={(e) => {
-                    if (!isSelected) {
-                      e.currentTarget.style.transform = "translate(-1px, -1px)";
-                      e.currentTarget.style.boxShadow = "4px 4px 0px #3E2723";
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    if (!isSelected) {
-                      e.currentTarget.style.transform = "none";
-                      e.currentTarget.style.boxShadow = "3px 3px 0px #3E2723";
-                    }
-                  }}
-                >
-                  <img
-                    src={il.src}
-                    alt={il.label}
-                    style={{ width: "100%", aspectRatio: "1", objectFit: "cover", borderRadius: "8px" }}
-                  />
-                  <span
-                    style={{
-                      fontFamily: "'Quicksand', sans-serif",
-                      fontSize: "12px",
-                      fontWeight: 700,
-                      color: "#3E2723",
-                    }}
-                  >
-                    {il.label}
-                  </span>
-                  {isSelected && (
-                    <div
-                      style={{
-                        position: "absolute",
-                        top: "6px",
-                        right: "6px",
-                        width: "20px",
-                        height: "20px",
-                        background: "#3E2723",
-                        borderRadius: "50%",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                      }}
-                    >
-                      <Check size={12} color="#FFF8E7" />
-                    </div>
-                  )}
-                </button>
-              );
-            })}
-          </div>
+          />
         </Modal>
       )}
     </div>

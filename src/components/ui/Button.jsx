@@ -15,39 +15,41 @@
  */
 const variantClasses = {
   primary:
-    'bg-brand hover:bg-brand-dark text-white border-2 border-ink ' +
-    'shadow-hard hover:shadow-none hover:translate-y-0.5 hover:translate-x-0.5',
+    "bg-brand hover:bg-brand-dark text-white border-2 border-ink " +
+    "shadow-hard hover:shadow-none hover:translate-y-0.5 hover:translate-x-0.5",
   secondary:
-    'bg-white hover:bg-cream text-ink border-2 border-dashed border-ink shadow-sm',
-  ghost:
-    'bg-transparent text-ink hover:text-brand',
-  accent:
-    'bg-accent hover:bg-accent-dark text-white',
+    "bg-white hover:bg-cream text-ink border-2 border-dashed border-ink shadow-sm",
+  ghost: "bg-transparent text-ink hover:text-brand",
+  accent: "bg-accent hover:bg-accent-dark text-white",
   success:
-    'bg-success text-white border-2 border-ink shadow-hard-sm hover:shadow-none hover:translate-y-px',
+    "bg-success text-white border-2 border-ink shadow-hard-sm hover:shadow-none hover:translate-y-px",
+  raw: "",
 };
 
 const sizeClasses = {
-  sm: 'py-2 px-6 text-base',
-  md: 'py-3 px-6 text-lg',
-  lg: 'py-4 px-8 text-xl',
+  sm: "py-2 px-6 text-base",
+  md: "py-3 px-6 text-lg",
+  lg: "py-4 px-8 text-xl",
 };
 
 const Button = ({
-  variant = 'primary',
-  size = 'md',
-  className = '',
+  variant = "primary",
+  size = "md",
+  className = "",
   children,
   ...props
 }) => (
   <button
     type="button"
     className={[
-      'group font-bold rounded-full transition-all inline-flex items-center justify-center gap-2',
+      variant !== "raw" &&
+        "group font-bold rounded-full transition-all inline-flex items-center justify-center gap-2",
       variantClasses[variant],
-      sizeClasses[size],
+      variant !== "raw" && sizeClasses[size],
       className,
-    ].join(' ')}
+    ]
+      .filter(Boolean)
+      .join(" ")}
     {...props}
   >
     {children}
