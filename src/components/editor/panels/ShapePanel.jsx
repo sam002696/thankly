@@ -1,21 +1,23 @@
-import { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { removeShape } from '../../../store/slices/editorSlice'
-import { SHAPES } from '../../svg'
-import ShapePickerModal from '../ShapePickerModal'
-import { Plus, Trash2, Shapes } from 'lucide-react'
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { removeShape } from "../../../store/slices/editorSlice";
+import { SHAPES } from "../../svg";
+import { Plus, Trash2, Shapes } from "lucide-react";
+import ShapePickerChildren from "../modal/ShapePickerChildren";
+import Modal from "../../ui/Modal";
+import Button from "../../ui/Button";
 
 export default function ShapePanel() {
-  const dispatch = useDispatch()
-  const shapes = useSelector(s => s.editor.shapes)
-  const [pickerOpen, setPickerOpen] = useState(false)
+  const dispatch = useDispatch();
+  const shapes = useSelector((s) => s.editor.shapes);
+  const [pickerOpen, setPickerOpen] = useState(false);
 
   return (
     <div className="space-y-6">
       <div>
         <h3
           className="font-bold text-ink text-base mb-1"
-          style={{ fontFamily: "'Caveat', cursive", fontSize: '20px' }}
+          style={{ fontFamily: "'Caveat', cursive", fontSize: "20px" }}
         >
           Shapes
         </h3>
@@ -24,14 +26,15 @@ export default function ShapePanel() {
         </p>
 
         {/* Add button */}
-        <button
+        <Button
+          variant="raw"
           onClick={() => setPickerOpen(true)}
           className="flex items-center gap-2 w-full justify-center py-3 rounded-xl border-2 border-ink font-semibold text-ink text-sm transition-all hover:-translate-y-px"
-          style={{ boxShadow: 'var(--shadow-hard-xs)', background: '#fff' }}
+          style={{ boxShadow: "var(--shadow-hard-xs)", background: "#fff" }}
         >
           <Plus size={16} />
           Add Shape
-        </button>
+        </Button>
       </div>
 
       {/* Placed shapes list */}
@@ -44,8 +47,8 @@ export default function ShapePanel() {
             On card ({shapes.length})
           </p>
           <div className="space-y-2">
-            {shapes.map(shape => {
-              const def = SHAPES.find(s => s.id === shape.type)
+            {shapes.map((shape) => {
+              const def = SHAPES.find((s) => s.id === shape.type);
               return (
                 <div
                   key={shape.id}
@@ -58,32 +61,44 @@ export default function ShapePanel() {
                   >
                     {def?.label ?? shape.type}
                   </span>
-                  <button
+                  <Button
+                    variant="raw"
                     onClick={() => dispatch(removeShape(shape.id))}
                     className="text-ink/40 hover:text-brand transition-colors p-1"
                     title="Remove"
                   >
                     <Trash2 size={14} />
-                  </button>
+                  </Button>
                 </div>
-              )
+              );
             })}
           </div>
         </div>
       )}
 
       {shapes.length === 0 && (
-        <div
-          className="flex flex-col items-center gap-3 py-8 rounded-xl border-2 border-dashed border-ink/20 text-ink/30"
-        >
+        <div className="flex flex-col items-center gap-3 py-8 rounded-xl border-2 border-dashed border-ink/20 text-ink/30">
           <Shapes size={32} />
-          <p className="text-xs text-center" style={{ fontFamily: "'Quicksand', sans-serif" }}>
-            No shapes yet.<br />Click "Add Shape" to get started.
+          <p
+            className="text-xs text-center"
+            style={{ fontFamily: "'Quicksand', sans-serif" }}
+          >
+            No shapes yet.
+            <br />
+            Click "Add Shape" to get started.
           </p>
         </div>
       )}
 
-      {pickerOpen && <ShapePickerModal onClose={() => setPickerOpen(false)} />}
+      {pickerOpen && (
+        <Modal
+          onClose={() => setPickerOpen(false)}
+          title="Pick an Illustration"
+          maxWidth="max-w-md"
+        >
+          <ShapePickerChildren onClose={() => setPickerOpen(false)} />
+        </Modal>
+      )}
     </div>
-  )
+  );
 }
