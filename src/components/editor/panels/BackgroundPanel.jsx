@@ -13,6 +13,7 @@ import {
 import { Paperclip, ImagePlus, X } from "lucide-react";
 import Modal from "../../ui/Modal";
 import AddIlustrationChildren from "../modal/AddIlustrationChildren";
+import Button from "../../ui/Button";
 
 const INTENSITIES = [
   { id: "subtle", label: "Subtle", opacity: 0.12 },
@@ -46,15 +47,16 @@ export default function BackgroundPanel() {
           {BACKGROUNDS.map((bg) => {
             const isSelected = background === bg.value;
             return (
-              <button
+              <Button
+                variant="raw"
                 key={bg.id}
                 onClick={() => dispatch(setBackground(bg.value))}
                 title={bg.label}
                 style={{
                   backgroundColor: bg.value,
                   border: isSelected
-                    ? "2.5px solid #3E2723"
-                    : "2px solid rgba(62,39,35,0.2)",
+                    ? "var(--border-ink-thick)"
+                    : "var(--border-ink-card-bg)",
                   boxShadow: isSelected ? "var(--shadow-hard-xs)" : "none",
                   transform: isSelected ? "translate(-1px, -1px)" : "none",
                 }}
@@ -63,7 +65,7 @@ export default function BackgroundPanel() {
                 {isSelected && (
                   <span
                     style={{
-                      color: bg.dark ? "#ffffff" : "#3E2723",
+                      color: bg.dark ? "var(--color-white)" : "var(--color-ink)",
                       fontSize: "16px",
                       fontWeight: "bold",
                     }}
@@ -71,7 +73,7 @@ export default function BackgroundPanel() {
                     ✓
                   </span>
                 )}
-              </button>
+              </Button>
             );
           })}
         </div>
@@ -122,7 +124,8 @@ export default function BackgroundPanel() {
                   display: "block",
                 }}
               />
-              <button
+              <Button
+                variant="raw"
                 onClick={() => dispatch(setIllustration(null))}
                 style={{
                   position: "absolute",
@@ -139,7 +142,7 @@ export default function BackgroundPanel() {
                 }}
               >
                 <X size={14} />
-              </button>
+              </Button>
             </div>
             <div
               style={{
@@ -161,7 +164,8 @@ export default function BackgroundPanel() {
               >
                 {activeIllustration.label}
               </span>
-              <button
+              <Button
+                variant="raw"
                 onClick={() => setShowModal(true)}
                 style={{
                   fontFamily: "'Quicksand', sans-serif",
@@ -176,11 +180,12 @@ export default function BackgroundPanel() {
                 }}
               >
                 Change
-              </button>
+              </Button>
             </div>
           </div>
         ) : (
-          <button
+          <Button
+            variant="raw"
             onClick={() => setShowModal(true)}
             className="flex items-center gap-3 w-full p-3 rounded-xl border-2 border-dashed transition-all text-left border-ink/30 hover:border-ink/60"
           >
@@ -191,7 +196,7 @@ export default function BackgroundPanel() {
                 Decorative background pattern
               </p>
             </div>
-          </button>
+          </Button>
         )}
 
         {/* Intensity picker — only shown when an illustration is active */}
@@ -202,28 +207,33 @@ export default function BackgroundPanel() {
               {INTENSITIES.map((level) => {
                 const isActive = illustrationIntensity === level.id;
                 return (
-                  <button
+                  <Button
+                    variant="raw"
                     key={level.id}
                     onClick={() => dispatch(setIllustrationIntensity(level.id))}
                     style={{
                       flex: 1,
                       padding: "6px 4px",
                       border: isActive
-                        ? "2.5px solid #3E2723"
-                        : "2px solid rgba(62,39,35,0.25)",
-                      borderRadius: "10px",
-                      background: isActive ? "#3E2723" : "#ffffff",
+                        ? "var(--border-ink-thick)"
+                        : "var(--border-ink)",
+                      borderRadius: "var(--radius-button)",
+                      background: isActive
+                        ? "var(--color-brand)"
+                        : "var(--color-white)",
                       boxShadow: isActive ? "var(--shadow-hard-sm)" : "none",
                       cursor: "pointer",
                       fontFamily: "'Quicksand', sans-serif",
                       fontSize: "12px",
                       fontWeight: 700,
-                      color: isActive ? "#FFF8E7" : "#3E2723",
+                      color: isActive
+                        ? "var(--color-white)"
+                        : "var(--color-ink)",
                       transition: "var(--transition-quick)",
                     }}
                   >
                     {level.label}
-                  </button>
+                  </Button>
                 );
               })}
             </div>
@@ -239,7 +249,8 @@ export default function BackgroundPanel() {
         >
           Tape Decoration
         </h3>
-        <button
+        <Button
+          variant="raw"
           onClick={() => dispatch(toggleTape())}
           className={[
             "flex items-center gap-3 w-full p-3 rounded-xl border-2 transition-all text-left",
@@ -264,7 +275,7 @@ export default function BackgroundPanel() {
               />
             </div>
           </div>
-        </button>
+        </Button>
       </div>
 
       {/* Illustration picker modal */}

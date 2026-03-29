@@ -14,11 +14,15 @@
   --color-ink:         #3E2723;  /* Text, borders, outlines                  */
   --color-success:     #16a34a;  /* Step numbers, positive feedback           */
   --color-sage:        #689F82;  /* Illustration body color                  */
+  --color-white:      #FFFFFF;  /* Pure white, used sparingly for contrast   */
 
   /* Borders */
   --border-ink:       2px   solid #3E2723;  /* Default border                   */
   --border-ink-thick: 2.5px solid #3E2723;  /* Selected / emphasis border        */
+  --border-ink-card-bg : 2.5px solid rgba(62,39,35,0.2);  /* Selected / emphasis border        */
   --radius-card:      14px;                 /* Picker item / card border-radius  */
+
+  --radius-button: 9999px;                 /* Fully rounded button border-radius */
 
   /* Interactions */
   --transition-quick: all 0.12s;            /* Hover / selection transitions     */

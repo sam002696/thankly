@@ -22,7 +22,7 @@ const AddIlustrationChildren = ({
             key={il.id}
             onClick={() => handlePick(il.id)}
             style={{
-              background: "#ffffff",
+              background: "var(--color-white)",
               border: isSelected ? "var(--border-ink-thick)" : "var(--border-ink)",
               borderRadius: "var(--radius-card)",
               padding: "8px",
