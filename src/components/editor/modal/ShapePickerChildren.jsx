@@ -34,15 +34,15 @@ const ShapePickerChildren = ({ onClose }) => {
           onClick={() => handlePick(shape.id)}
           style={{
             background: "#ffffff",
-            border: "2px solid #3E2723",
-            borderRadius: "14px",
+            border: "var(--border-ink)",
+            borderRadius: "var(--radius-card)",
             padding: "16px 12px 12px",
             cursor: "pointer",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
             gap: "8px",
-            transition: "all 0.12s",
+            transition: "var(--transition-quick)",
             boxShadow: "var(--shadow-hard-xs)",
           }}
           onMouseEnter={(e) => {

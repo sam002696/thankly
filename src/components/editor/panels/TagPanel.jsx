@@ -42,7 +42,7 @@ export default function TagPanel() {
                 key={t.id}
                 onClick={() => dispatch(setTag(t))}
                 style={{
-                  border: isSelected ? '2.5px solid #3E2723' : '2px solid rgba(62,39,35,0.15)',
+                  border: isSelected ? 'var(--border-ink-thick)' : '2px solid rgba(62,39,35,0.15)',
                   boxShadow: isSelected ? 'var(--shadow-hard-xs)' : 'none',
                   transform: isSelected ? 'translate(-1px, -1px)' : 'none',
                 }}

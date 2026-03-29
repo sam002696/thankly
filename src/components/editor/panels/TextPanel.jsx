@@ -89,7 +89,7 @@ export default function TextPanel() {
                 onClick={() => dispatch(setFont(f.id))}
                 style={{
                   fontFamily: f.family,
-                  border: isSelected ? '2.5px solid #3E2723' : '2px solid rgba(62,39,35,0.2)',
+                  border: isSelected ? 'var(--border-ink-thick)' : '2px solid rgba(62,39,35,0.2)',
                   boxShadow: isSelected ? 'var(--shadow-hard-xs)' : 'none',
                   transform: isSelected ? 'translate(-1px,-1px)' : 'none',
                 }}
@@ -120,7 +120,7 @@ export default function TextPanel() {
                 title={c.label}
                 style={{
                   backgroundColor: c.value,
-                  border: isSelected ? '2.5px solid #3E2723' : '2px solid rgba(62,39,35,0.25)',
+                  border: isSelected ? 'var(--border-ink-thick)' : '2px solid rgba(62,39,35,0.25)',
                   boxShadow: isSelected ? 'var(--shadow-hard-xs)' : 'none',
                   transform: isSelected ? 'translate(-1px,-1px)' : 'none',
                   outline: c.value === '#FFFFFF' ? '1px dashed rgba(62,39,35,0.3)' : 'none',

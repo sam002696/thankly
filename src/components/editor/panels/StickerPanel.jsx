@@ -45,7 +45,7 @@ export default function StickerPanel() {
                 key={emoji}
                 onClick={() => dispatch(setSticker(isSelected ? null : emoji))}
                 style={{
-                  border: isSelected ? '2.5px solid #3E2723' : '2px solid rgba(62,39,35,0.1)',
+                  border: isSelected ? 'var(--border-ink-thick)' : '2px solid rgba(62,39,35,0.1)',
                   boxShadow: isSelected ? 'var(--shadow-hard-xs)' : 'none',
                   transform: isSelected ? 'translate(-1px,-1px)' : 'none',
                   background: isSelected ? '#FFF8E7' : 'white',

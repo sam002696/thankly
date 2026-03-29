@@ -104,8 +104,8 @@ export default function BackgroundPanel() {
         {activeIllustration ? (
           <div
             style={{
-              border: "2px solid #3E2723",
-              borderRadius: "14px",
+              border: "var(--border-ink)",
+              borderRadius: "var(--radius-card)",
               overflow: "hidden",
               boxShadow: "var(--shadow-hard-xs)",
               marginBottom: "12px",
@@ -219,7 +219,7 @@ export default function BackgroundPanel() {
                       fontSize: "12px",
                       fontWeight: 700,
                       color: isActive ? "#FFF8E7" : "#3E2723",
-                      transition: "all 0.12s",
+                      transition: "var(--transition-quick)",
                     }}
                   >
                     {level.label}

@@ -23,15 +23,15 @@ const AddIlustrationChildren = ({
             onClick={() => handlePick(il.id)}
             style={{
               background: "#ffffff",
-              border: isSelected ? "2.5px solid #3E2723" : "2px solid #3E2723",
-              borderRadius: "14px",
+              border: isSelected ? "var(--border-ink-thick)" : "var(--border-ink)",
+              borderRadius: "var(--radius-card)",
               padding: "8px",
               cursor: "pointer",
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
               gap: "8px",
-              transition: "all 0.12s",
+              transition: "var(--transition-quick)",
               boxShadow: isSelected
                 ? "var(--shadow-hard)"
                 : "var(--shadow-hard-xs)",

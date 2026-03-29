@@ -15,6 +15,14 @@
   --color-success:     #16a34a;  /* Step numbers, positive feedback           */
   --color-sage:        #689F82;  /* Illustration body color                  */
 
+  /* Borders */
+  --border-ink:       2px   solid #3E2723;  /* Default border                   */
+  --border-ink-thick: 2.5px solid #3E2723;  /* Selected / emphasis border        */
+  --radius-card:      14px;                 /* Picker item / card border-radius  */
+
+  /* Interactions */
+  --transition-quick: all 0.12s;            /* Hover / selection transitions     */
+
   /* Hard-edge shadows (brand style) */
   --shadow-hard-xs:   3px  3px  0px #3E2723;
   --shadow-hard-sm:   2px  2px  0px #3E2723;
